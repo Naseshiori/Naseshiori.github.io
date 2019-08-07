@@ -61,52 +61,32 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-新建文本文档" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/06/新建文本文档/" class="article-date">
-  <time datetime="2019-07-06T06:02:43.899Z" itemprop="datePublished">2019-07-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Gechenyu niubi
-    </h1>
-  
+        <section id="main">extends views/main.pug
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/06/新建文本文档/" data-id="cjxr4locb0000cc6umfxjwtrc" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-  
-    <a href="/2019/07/05/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
-    </a>
-  
-</nav>
+block head
+  title
+    = page.title + ' - ' + config.title
 
-  
-</article>
+block main
+  if page.type === 'tags'
+    include mixins/tags.pug
+    +tags('TAGS', site.tags.length)
+  else
+    include mixins/post.pug
+    +post(page, 'post')
 
+  //-
+  include plugins/reward.pug
+
+  //- comment
+  if theme.comment_plugin == 'valine'
+    include plugins/valine.pug
+  else
+    include plugins/livere.pug
+
+  //- mathjax
+  if page.mathjax
+    include plugins/mathjax.pug
 </section>
         
           <aside id="sidebar">
