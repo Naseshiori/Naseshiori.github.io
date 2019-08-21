@@ -60,60 +60,26 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/07/06/1/" class="archive-article-date">
-  <time datetime="2019-07-06T06:02:43.899Z" itemprop="datePublished">Jul 6</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/06/1/">我的第一篇博文</a>
-    </h1>
-  
+        <section id="main">extends views/main.pug
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/07/05/hello-world/" class="archive-article-date">
-  <time datetime="2019-07-05T03:11:04.227Z" itemprop="datePublished">Jul 5</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/05/hello-world/">Hello World</a>
-    </h1>
-  
+block head
+  title
+    = config.title
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
+block main
+  include mixins/post.pug
+  -var time
+  -site.posts.sort('date', 'desc').each(function(post) {
+    -var year = post.date.year()
+    -if (time != year) {
+      -if (time) {
+        h2.archive-title
+          = year
+      -}
+      -time = year
+    -}
+    +post(post, 'archive')
+  -})
 </section>
         
           <aside id="sidebar">
